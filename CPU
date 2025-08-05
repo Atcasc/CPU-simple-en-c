@@ -3,12 +3,23 @@
 #include <string.h>
 int main(){
     FILE *readingFile;
+    int memoria[20]={0};
+    program(readingFile,memoria);
 }
 
-int program(FILE *readingFile){
+int program(FILE *readingFile, int memoria[]){
     char linea[32];
     int datos;
-    while(fscanf(readingFile,"%s %d",linea,&datos)){
-        
+    int registro;
+    while(fscanf(readingFile,"%s %d",linea,&datos)!=EOF){
+        if(strcmp(linea,"LOAD")==0){
+            registro=memoria[datos];
+        }else if (strcmp(linea,"STORE")==0){
+            memoria[datos]=registro;
+        }else if(strcmp(linea,"ADD")){
+            registro+=memoria[datos];
+        }else if(strcmp(linea,"SUB")){
+            registro-=memoria[datos];
+        }
     }
 }
