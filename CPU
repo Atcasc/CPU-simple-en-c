@@ -1,5 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 int main(){
-    
+    FILE *readingFile;
+}
+
+int program(FILE *readingFile){
+    char linea[32];
+    int datos;
+    while(fscanf(readingFile,"%s %d",linea,&datos)){
+        
+    }
 }
