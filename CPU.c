@@ -21,22 +21,39 @@ int main(){
 
 int program(FILE *readingFile, int memoria[]){
     char linea[32];
-    int datos;
+    int datos=-1;
     int registro;
-    while(fscanf(readingFile,"%s %d",linea,&datos)!=EOF){
+    fscanf(readingFile,"%s %d",linea,&datos);
+    while(!feof(readingFile)){
         if(strcmp(linea,"LOAD")==0){
+            if(datos==-1)printf("Falta un parametro en el LOAD");
+            else{
             registro=memoria[datos];
-            printf("load hecho");
+            printf("load hecho\n");
+            }
         }else if (strcmp(linea,"STORE")==0){
+            if(datos==-1)printf("Falta un parametro en el STORE");
+            else{
             memoria[datos]=registro;
-            printf("store hecho");
+            printf("store hecho\n");
+            }
         }else if(strcmp(linea,"ADD")==0){
+            if(datos==-1)printf("Falta un parametro en el ADD");
+            else{
             registro+=memoria[datos];
-            printf("add hecho");
+            printf("add hecho\n");
+            }
         }else if(strcmp(linea,"SUB")==0){
+            if(datos==-1)printf("Falta un parametro en el SUB");
+            else{
             registro-=memoria[datos];
-            printf("sub hecho");
+            printf("sub hecho\n");
+            }
+        }else{
+            printf("Instruccion no reconocida\n");
         }
+        datos=-1;
+        fscanf(readingFile,"%s %d",linea,&datos);
     }
     return registro;
 }
