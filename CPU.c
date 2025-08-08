@@ -49,7 +49,13 @@ int program(FILE *readingFile, int memoria[]){
             registro-=memoria[datos];
             printf("sub hecho\n");
             }
-        }else{
+        }else if(strcmp(linea,"JMP")==0){
+            if(datos==-1)printf("Falta un parametro en el JMP");
+            else{
+                salto(datos,readingFile);
+            }
+        }
+        else{
             printf("Instruccion no reconocida\n");
         }
         datos=-1;
@@ -57,3 +63,10 @@ int program(FILE *readingFile, int memoria[]){
     }
     return registro;
 }
+
+
+int salto(int posicion,FILE *readingFile){
+    return fseek(readingFile,posicion,SEEK_SET);
+}
+
+// hacer una funcion para salto y asi la reutilizo en los tres saltos
