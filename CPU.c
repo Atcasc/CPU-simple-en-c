@@ -50,11 +50,18 @@ int program(FILE *readingFile, int memoria[]){
             printf("sub hecho\n");
             }
         }else if(strcmp(linea,"JMP")==0){
-            if(datos==-1)printf("Falta un parametro en el JMP");
-            else{
-                salto(datos,readingFile);
+            
+            if(salto(datos,readingFile)!=0) printf("faltan parametros") ;
+        }else if(strcmp(linea,"JZ")){
+            if(registro==0){
+                if(salto(datos,readingFile)!=0) printf("faltan parametros") ;
+            }
+        }else if(strcmp(linea,"JNZ")){
+            if(registro!=0){
+                if(salto(datos,readingFile)!=0) printf("faltan parametros") ;
             }
         }
+
         else{
             printf("Instruccion no reconocida\n");
         }
@@ -66,7 +73,7 @@ int program(FILE *readingFile, int memoria[]){
 
 
 int salto(int posicion,FILE *readingFile){
-    return fseek(readingFile,posicion,SEEK_SET);
+    if(posicion ==-1) return fseek(readingFile,posicion,SEEK_SET);
 }
 
 // hacer una funcion para salto y asi la reutilizo en los tres saltos
