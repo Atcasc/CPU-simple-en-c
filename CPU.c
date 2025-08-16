@@ -52,14 +52,23 @@ int program(FILE *readingFile, int memoria[]){
         }else if(strcmp(linea,"JMP")==0){
             
             if(salto(datos,readingFile)!=0) printf("faltan parametros") ;
-        }else if(strcmp(linea,"JZ")){
+        }else if(strcmp(linea,"JZ")==0){
             if(registro==0){
                 if(salto(datos,readingFile)!=0) printf("faltan parametros") ;
             }
-        }else if(strcmp(linea,"JNZ")){
+        }else if(strcmp(linea,"JNZ")==0){
             if(registro!=0){
                 if(salto(datos,readingFile)!=0) printf("faltan parametros") ;
             }
+        }
+        else if(strcmp(linea,"INC")==0){
+            registro+=1;
+        }
+        else if(strcmp(linea,"DEC")==0){
+            registro-=1;
+        }
+        else if(strcmp(linea,"HALT")==0){
+            break;
         }
 
         else{
@@ -72,8 +81,22 @@ int program(FILE *readingFile, int memoria[]){
 }
 
 
-int salto(int posicion,FILE *readingFile){
-    if(posicion ==-1) return fseek(readingFile,posicion,SEEK_SET);
+int salto(int posicion, FILE *readingFile) {
+    if (posicion == -1) {
+        return 1; 
+    }
+
+    rewind(readingFile);  
+    char linea[32];
+    int datos;
+
+    for (int i = 0; i < posicion; i++) {
+        if (fscanf(readingFile, "%s %d", linea, &datos) == EOF) {
+            return 1; 
+        }
+    }
+
+    return 0; 
 }
 
-// hacer una funcion para salto y asi la reutilizo en los tres saltos
+
